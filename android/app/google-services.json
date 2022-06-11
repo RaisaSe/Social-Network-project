@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1070605114153",
+    "project_id": "students-network",
+    "storage_bucket": "students-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070605114153:android:3a28b901f946480d9a7538",
+        "android_client_info": {
+          "package_name": "com.example.social_network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070605114153-830j96ekmrg5miot6adq9vk8g8q13hhf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYqyWXOBBWq4egTOJDJU2EBxR0m8Y5WlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070605114153-830j96ekmrg5miot6adq9vk8g8q13hhf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1070605114153-dhfirj8ukpapo079r8v3j15qgd7l708h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialNetwork"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
