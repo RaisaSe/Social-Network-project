@@ -1,14 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:social_network/providers/user_provider.dart';
 import 'package:social_network/utils/colors.dart';
+import 'package:social_network/widgets/like_animation.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   final snap;
   const PostCard({Key? key, required this.snap}) : super(key: key);
 
   @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool isLikeAnimating = false;
+
+  @override
   Widget build(BuildContext context) {
+    // final User user = Provider.of<UserProvider>(context).getUser;
     return Container(
       color: mobileBackgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -79,21 +90,32 @@ class PostCard extends StatelessWidget {
             ),
           ),
           // image section
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: double.infinity,
-            child: Image.network(
-              'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-              fit: BoxFit.cover,
-            ),
+
+          Stack(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: double.infinity,
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80', // snap['postUrl'],
+                  fit: BoxFit.cover,
+                ),
+              ),
+              //   LikeAnimation(child: const Icon(Icons.favorite), color: Colors.white, size: 120), isAnimating: isLikeAnimating, duration: const Duration(miliseconds: 400,), onEnd: () {setState (() { isLikeAnimating = true; },), }, )
+            ],
           ),
           Row(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.redAccent,
+              // LikeAnimation(isAnimating: sanp['likes'].contains(user.uid),
+              // smallLike:  true,
+              Center(
+                child: IconButton(
+                  //wrap icon button with center
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.redAccent,
+                  ),
                 ),
               ),
               IconButton(
@@ -108,12 +130,12 @@ class PostCard extends StatelessWidget {
                   Icons.send,
                 ),
               ),
-              /* IconButton(
+              IconButton(
                 onPressed: () {},
                 icon: const Icon(
                   Icons.save_alt_outlined,
                 ),
-              ), */
+              ),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomRight,
@@ -142,6 +164,7 @@ class PostCard extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w800),
                   child: Text(
                     '1,234 likes',
+                    // '${snap['likes'].length} likes',
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
@@ -155,12 +178,12 @@ class PostCard extends StatelessWidget {
                       style: const TextStyle(color: primaryColor),
                       children: [
                         TextSpan(
-                          text: 'username',
+                          text: 'username', //snap['username],
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text:
-                              ' This is the description and it is going to be replaced',
+                              ' This is the description and it is going to be replaced', //' ${snap['description]}',
                         ),
                       ],
                     ),
@@ -171,7 +194,7 @@ class PostCard extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      'View all 200 comments',
+                      'View all 200 comments', //
                       style:
                           const TextStyle(fontSize: 17, color: secondaryColor),
                     ),
@@ -180,7 +203,7 @@ class PostCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
-                    '19 iunie 2022',
+                    '19 iunie 2022', //DateFormat.yMMMd().format(snap['datePublished'].toDate(),),
                     style: const TextStyle(fontSize: 12, color: secondaryColor),
                   ),
                 ),

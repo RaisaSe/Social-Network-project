@@ -14,7 +14,7 @@ class FeedScreen extends StatelessWidget {
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
         title: SvgPicture.asset(
-          "assets/ic_instagram.svg",
+          "assets/sigla_studentsnetwork-good.svg",
           color: primaryColor,
           height: 32,
         ),
@@ -28,6 +28,7 @@ class FeedScreen extends StatelessWidget {
         ],
       ),
       body: const PostCard(
+        //will dissapear and show the code below (in order to work)
         snap: null,
       ),
 
