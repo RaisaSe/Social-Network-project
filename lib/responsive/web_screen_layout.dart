@@ -47,14 +47,14 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
         title: SvgPicture.asset(
-          'assets/sigla_studentsnetwork.svg',
+          'assets/studentsnetwork.svg',
           color: primaryColor,
           height: 32,
         ),
         actions: [
           IconButton(
             icon: Icon(
-              Icons.public,
+              Icons.home,
               color: _page == 0 ? primaryColor : secondaryColor,
             ),
             onPressed: () => navigationTapped(0),
@@ -68,21 +68,21 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
           ),
           IconButton(
             icon: Icon(
-              Icons.camera_enhance_rounded,
+              Icons.add_a_photo,
               color: _page == 2 ? primaryColor : secondaryColor,
             ),
             onPressed: () => navigationTapped(2),
           ),
           IconButton(
             icon: Icon(
-              Icons.notifications_none,
+              Icons.favorite,
               color: _page == 3 ? primaryColor : secondaryColor,
             ),
             onPressed: () => navigationTapped(3),
           ),
           IconButton(
             icon: Icon(
-              Icons.account_circle,
+              Icons.person,
               color: _page == 4 ? primaryColor : secondaryColor,
             ),
             onPressed: () => navigationTapped(4),

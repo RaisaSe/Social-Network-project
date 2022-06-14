@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:social_network/utils/colors.dart';
 import 'package:social_network/utils/global_variables.dart';
 
-import '../screens/add_post_screen.dart';
-
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
 
@@ -14,7 +12,7 @@ class MobileScreenLayout extends StatefulWidget {
 
 class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   int _page = 0;
-  late PageController pageController;
+  late PageController pageController; // for tabs animation
 
   @override
   void initState() {
@@ -28,14 +26,15 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     pageController.dispose();
   }
 
-  void navigationTapped(int page) {
-    pageController.jumpToPage(page);
-  }
-
   void onPageChanged(int page) {
     setState(() {
       _page = page;
     });
+  }
+
+  void navigationTapped(int page) {
+    //Animating Page
+    pageController.jumpToPage(page);
   }
 
   @override
@@ -48,49 +47,48 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
-        items: [
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.public,
-              color: _page == 0 ? primaryColor : secondaryColor,
-            ), //public instead of home
+              Icons.local_fire_department_outlined,
+              color: (_page == 0) ? primaryColor : secondaryColor,
+            ),
             label: '',
             backgroundColor: primaryColor,
           ),
           BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: (_page == 1) ? primaryColor : secondaryColor,
+              ),
+              label: '',
+              backgroundColor: primaryColor),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.camera_enhance_rounded,
+                color: (_page == 2) ? primaryColor : secondaryColor,
+              ),
+              label: '',
+              backgroundColor: primaryColor),
+          BottomNavigationBarItem(
             icon: Icon(
-              Icons.search,
-              color: _page == 1 ? primaryColor : secondaryColor,
+              Icons.favorite,
+              color: (_page == 3) ? primaryColor : secondaryColor,
             ),
             label: '',
             backgroundColor: primaryColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.camera_enhance_rounded,
-              color: _page == 2 ? primaryColor : secondaryColor,
-            ), //camera_enhance_rounded instead of add_circle
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.notifications_none,
-              color: _page == 3 ? primaryColor : secondaryColor,
-            ), //notification_none instead of favorite
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
               Icons.account_circle,
-              color: _page == 4 ? primaryColor : secondaryColor,
-            ), //account_circle instead of person
+              color: (_page == 4) ? primaryColor : secondaryColor,
+            ),
             label: '',
             backgroundColor: primaryColor,
           ),
         ],
         onTap: navigationTapped,
+        currentIndex: _page,
       ),
     );
   }

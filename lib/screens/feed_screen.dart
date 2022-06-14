@@ -1,39 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_network/utils/colors.dart';
+import 'package:social_network/utils/global_variables.dart';
 import 'package:social_network/widgets/post_card.dart';
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
-        centerTitle: false,
-        title: SvgPicture.asset(
-          "assets/sigla_studentsnetwork-good.svg",
-          color: primaryColor,
-          height: 32,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.messenger_outline,
-            ),
-          ),
-        ],
-      ),
-      body: const PostCard(
-        //will dissapear and show the code below (in order to work)
-        snap: null,
-      ),
+  State<FeedScreen> createState() => _FeedScreenState();
+}
 
-      /*      StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Posts').snapshots(),
+class _FeedScreenState extends State<FeedScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      backgroundColor:
+          width > webScreenSize ? webBackgroundColor : mobileBackgroundColor,
+      appBar: width > webScreenSize
+          ? null
+          : AppBar(
+              backgroundColor: mobileBackgroundColor,
+              centerTitle: false,
+              title: SvgPicture.asset(
+                'assets/studentsnetwork.svg',
+                color: primaryColor,
+                height: 32,
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.messenger_outline,
+                    color: primaryColor,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -43,12 +51,18 @@ class FeedScreen extends StatelessWidget {
           }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
-            itemBuilder: ((context, index) => PostCard(
-                  snap: snapshot.data!.docs[index].data(),
-                )),
+            itemBuilder: (ctx, index) => Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: width > webScreenSize ? width * 0.3 : 0,
+                vertical: width > webScreenSize ? 15 : 0,
+              ),
+              child: PostCard(
+                snap: snapshot.data!.docs[index].data(),
+              ),
+            ),
           );
         },
-      ), */
+      ),
     );
   }
 }

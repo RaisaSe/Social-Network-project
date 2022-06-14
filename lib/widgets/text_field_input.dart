@@ -11,21 +11,21 @@ class TextFieldInput extends StatelessWidget {
     this.isPass = false,
     required this.hintText,
     required this.textInputType,
-    // ignore: non_constant_identifier_names
-    required TextInputType TextInputType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final InputBorder =
-        OutlineInputBorder(borderSide: Divider.createBorderSide(context));
+    final inputBorder = OutlineInputBorder(
+      borderSide: Divider.createBorderSide(context),
+    );
+
     return TextField(
       controller: textEditingController,
       decoration: InputDecoration(
         hintText: hintText,
-        border: InputBorder,
-        focusedBorder: InputBorder,
-        enabledBorder: InputBorder,
+        border: inputBorder,
+        focusedBorder: inputBorder,
+        enabledBorder: inputBorder,
         filled: true,
         contentPadding: const EdgeInsets.all(8),
       ),
